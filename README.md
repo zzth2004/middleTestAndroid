@@ -8,13 +8,8 @@ git clone https://github.com/ron19102004/capacitor-core-html-js.git
 ```
 npm install
 ```
-- Init app
+- Sync code
 ```
-npx cap init
-npm i @capacitor/android @capacitor/ios
-npx cap sync
-npx cap add android
-npx cap add ios
 npx cap sync
 ```
 - Run app
