@@ -2,7 +2,8 @@
 ## Install And Run
 - Clone source
 ```
-git clone https://github.com/ron19102004/capacitor-core-html-js.git
+git clone https://github.com/zzth2004/middleTestAndroid.git
+
 ```
 - Install package
 ```
