@@ -16,3 +16,16 @@ npx cap sync
 ```
 npx cap open android
 ```
+- Run app demo
+```
+### Ảnh 1
+![Ảnh 1](www/images/applmg1.jpg)
+```
+```
+### Ảnh 1
+![Ảnh 2](www/images/applmg2.jpg)
+```
+```
+### Ảnh 1
+![Ảnh 3](www/images/applmg3.jpg)
+```
