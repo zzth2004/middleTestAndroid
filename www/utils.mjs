@@ -1,30 +1,29 @@
+const { Camera, Geolocation, LocalNotifications, Share} = Capacitor.Plugins;
+
+
+
 export class CameraUtils {
   constructor() {}
+
   /**
    *
    * @param {HTMLElement} takePictureBtn
-   * @param {HTMLElement} photoEl
-   * @param {Function} callbackFn - Hàm callback được gọi khi xử lý thành công (image) => {}
-   * @param {Function} errorFn - Hàm callback được gọi khi có lỗi xảy ra (error) => {}
+   * @param {Function} callbackFn - Hàm callback khi chụp ảnh thành công (image) => {}
+   * @param {Function} errorFn - Hàm callback khi có lỗi xảy ra (error) => {}
    */
   apply(takePictureBtn, callbackFn, errorFn) {
     takePictureBtn.addEventListener("click", async () => {
-      // Kiểm tra xem Capacitor và plugin Camera có sẵn không
-      if (
-        window.Capacitor &&
-        window.Capacitor.Plugins &&
-        window.Capacitor.Plugins.Camera
-      ) {
+      if (Camera) {
         try {
-          const image = await window.Capacitor.Plugins.Camera.getPhoto({
+          const image = await Camera.getPhoto({
             quality: 90,
             allowEditing: false,
-            resultType: "uri", // Trả về URL của ảnh
-            source: "CAMERA", // Mở camera
+            resultType: "uri",
+            source: "CAMERA",
           });
           callbackFn(image);
         } catch (error) {
-          console.error("Error taking picture", error);
+          console.error("Lỗi khi chụp ảnh:", error);
           errorFn(error);
         }
       } else {
@@ -34,7 +33,9 @@ export class CameraUtils {
     });
   }
 }
-const { LocalNotifications } = Capacitor.Plugins;
+
+
+
 export class Notification {
   constructor() {}
 
@@ -43,27 +44,23 @@ export class Notification {
    * @param {string} title - Tiêu đề của thông báo
    * @param {string} body - Nội dung của thông báo
    * @param {string} smallIcon - Biểu tượng nhỏ (Android)
-   * @returns {Promise<void>}
    */
   async sendNotification(title, body, smallIcon) {
     try {
-      // Yêu cầu quyền nếu chưa cấp
       const permission = await LocalNotifications.requestPermissions();
       if (permission.display !== "granted") {
-        alert("Bạn cần cấp quyền thông báo để sử dụng tính năng này.");
+        alert("Bạn cần cấp quyền thông báo!");
         return;
       }
 
-      // Lên lịch thông báo ngay lập tức
       await LocalNotifications.schedule({
         notifications: [
           {
-            id:  Math.floor(Date.now() / 1000),
+            id: Math.floor(Date.now() / 1000),
             title: title,
             body: body,
-            smallIcon: smallIcon, // Icon cho Android
+            smallIcon: smallIcon,
             sound: "default",
-            extra: { key: "value" },
           },
         ],
       });
@@ -74,16 +71,14 @@ export class Notification {
   }
 }
 
-const { Share } = Capacitor.Plugins;
 export class ShareAPI {
   constructor() {}
 
   /**
    * Chia sẻ nội dung bằng Capacitor Share API
-   * @param {string} title - Tiêu đề nội dung chia sẻ
+   * @param {string} title - Tiêu đề chia sẻ
    * @param {string} text - Nội dung chia sẻ
-   * @param {string} url - Đường dẫn URL cần chia sẻ
-   * @returns {Promise<void>}
+   * @param {string} url - Đường dẫn URL
    */
   async shareContent(title, text, url) {
     try {
@@ -99,3 +94,33 @@ export class ShareAPI {
     }
   }
 }
+
+// ✅ Thêm class lấy vị trí
+export class LocationUtils {
+  constructor() {}
+
+  /**
+   * Lấy vị trí hiện tại của thiết bị
+   * @param {Function} successFn - Callback khi lấy vị trí thành công (coords) => {}
+   * @param {Function} errorFn - Callback khi lấy vị trí thất bại (error) => {}
+   */
+  async getCurrentLocation(successFn, errorFn) {
+    try {
+      // Kiểm tra quyền truy cập vị trí
+      const permission = await Geolocation.requestPermissions();
+      if (permission.location !== "granted") {
+        errorFn("Bạn chưa cấp quyền truy cập vị trí.");
+        return;
+      }
+
+      // Lấy vị trí
+      const position = await Geolocation.getCurrentPosition();
+      const { latitude, longitude } = position.coords;
+      successFn({ latitude, longitude });
+    } catch (error) {
+      errorFn(error);
+    }
+  }
+}
+
+

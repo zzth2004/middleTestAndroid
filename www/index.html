@@ -8,27 +8,52 @@
 </head>
 <body class="bg-gradient-to-br from-blue-500 to-purple-600 min-h-screen flex items-center justify-center px-5">
 
-  <div id="app" class="bg-white p-8 rounded-xl shadow-xl text-center max-w-md w-full">
-    <h1 class="text-2xl font-bold text-gray-800 mb-6">📱 Xin chào Bích Thùy</h1>
+<div id="app" class="bg-white p-8 rounded-xl shadow-xl text-center max-w-md w-full">
+  <h1 class="text-2xl font-bold text-gray-800 mb-6">📱 Hiển thị thời gian</h1>
 
-    <div class="flex flex-col gap-4">
-      <button id="notificationBtn" class="px-5 py-3 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition">
-        🔔 Gửi thông báo
-      </button>
-      <button id="shareBtn" class="px-5 py-3 bg-green-600 text-white rounded-lg shadow-md hover:bg-green-700 transition">
-        📤 Chia sẻ
-      </button>
-      <button id="takePictureBtn" class="px-5 py-3 bg-red-600 text-white rounded-lg shadow-md hover:bg-red-700 transition">
-        📸 Chụp ảnh
-      </button>
-    </div>
-
-    <img id="photo" src="" alt="Ảnh đã chụp" class="mt-6 rounded-lg shadow-md hidden" />
-
+  <div class="mb-4">
+    <button
+            id="showTimeBtn"
+            class="w-full p-3 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition">
+      🕰 Xem giờ hiện tại
+    </button>
   </div>
 
-  <script type="module" src="utils.mjs"></script>
-  <script type="module" src="main.mjs"></script>
+  <!-- Popup thông báo -->
+  <div id="timePopup" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+    <div class="bg-white p-6 rounded-lg shadow-lg text-center max-w-sm">
+      <p id="timeDisplay" class="text-lg font-semibold text-gray-800"></p>
+      <button id="closePopup" class="mt-4 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">Đóng</button>
+    </div>
+  </div>
+
+
+  <div class="flex flex-col gap-4 mt-6">
+    <button id="notificationBtn" class="px-5 py-3 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition">
+      🔔 Gửi thông báo
+    </button>
+    <button id="shareBtn" class="px-5 py-3 bg-green-600 text-white rounded-lg shadow-md hover:bg-green-700 transition">
+      📤 Chia sẻ
+    </button>
+    <button id="takePictureBtn" class="px-5 py-3 bg-red-600 text-white rounded-lg shadow-md hover:bg-red-700 transition">
+      📸 Chụp ảnh
+    </button>
+    <button id="screenshotBtn" class="px-5 py-3 bg-red-600 text-white rounded-lg shadow-md hover:bg-red-700 transition">
+      📸 Chụp ảnh ScreenShot
+    </button>
+  </div>
+
+  <img id="photo" src="" alt="Ảnh đã chụp" class="mt-6 rounded-lg shadow-md hidden" />
+
+</div>
+
+
+<script type="module" src="utils.mjs"></script>
+<script type="module" src="main.mjs"></script>
+
+
+
+<!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCIQmi71CdcDTr8t4eqcdsawwFixAauqKQ&callback=initMap" async defer></script>-->
 
 </body>
 </html>
